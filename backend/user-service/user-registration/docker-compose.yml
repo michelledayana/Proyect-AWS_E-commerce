@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:13
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: dayana
+      POSTGRES_DB: users_db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  api:
+    build: .
+    ports:
+      - "3007:3007"
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=dayana
+      - DATABASE_URL=postgresql://postgres:dayana@localhost:5432/users_db
+    command: >
+      sh -c "./wait-for-postgres.sh alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 3007"
+
+volumes:
+  pgdata:
