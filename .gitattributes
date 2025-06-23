@@ -1,0 +1,23 @@
+# Configuración estándar para todos los archivos de texto
+* text=auto eol=lf
+
+# Excepciones para scripts de Windows (CRLF)
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# Archivos binarios (no modificar)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.zip binary
+*.jar binary
+*.exe binary
+
+# Configuración específica para ESLint (el archivo de tu warning)
+Backend/product-service/create_product_1/.eslintrc.js text eol=lf
+
+# Metarchivos Git (no modificar)
+.gitattributes -text
+.gitignore -text
